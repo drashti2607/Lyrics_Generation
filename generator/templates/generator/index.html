@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyrics Generator</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lyrics Generator</h1>
+        <input type="text" id="seed_text" placeholder="Enter a short phrase" maxlength="100">
+        <label for="num_words">Number of words:</label>
+        <select id="num_words">
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="150">150</option>
+            <option value="200">200</option>
+            <option value="250">250</option>
+            <option value="300">300</option>
+        </select>
+        <button onclick="generateLyrics()">Generate Lyrics</button>
+        <button onclick="clearFields()">Clear</button>
+        <div id="spinner" class="spinner"></div>
+        <p id="generated_lyrics"></p>
+        <p id="error_message" style="color: red;"></p>
+    </div>
+
+    <script>
+        function generateLyrics() {
+            const seedText = document.getElementById('seed_text').value;
+            const numWords = document.getElementById('num_words').value;
+            const spinner = document.getElementById('spinner');
+            const lyricsDisplay = document.getElementById('generated_lyrics');
+            const errorMessage = document.getElementById('error_message');
+            
+            lyricsDisplay.innerText = '';
+            errorMessage.innerText = '';
+            spinner.style.display = 'block';
+
+            fetch(`/generate/?seed_text=${seedText}&num_words=${numWords}`)
+                .then(response => response.json())
+                .then(data => {
+                    spinner.style.display = 'none';
+                    if (data.error) {
+                        errorMessage.innerText = data.error;
+                    } else {
+                        lyricsDisplay.innerText = data.lyrics;
+                    }
+                })
+                .catch(error => {
+                    spinner.style.display = 'none';
+                    errorMessage.innerText = 'Error generating lyrics. Please try again.';
+                });
+        }
+
+        function clearFields() {
+            document.getElementById('seed_text').value = '';
+            document.getElementById('generated_lyrics').innerText = '';
+        }
+    </script>
+</body>
+</html>
