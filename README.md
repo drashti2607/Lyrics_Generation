@@ -23,8 +23,8 @@ Ensure you have the following installed on your system:
 **Step-by-Step Installation:**
 
 1. Clone the Repository
-  git clone <repository_url>
-  cd <project_directory>
+  ```git clone <repository_url>
+  cd <project_directory>```
 
 2. Set Up Virtual Environment
   python3 -m venv venv
