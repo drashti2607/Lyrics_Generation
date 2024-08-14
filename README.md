@@ -30,20 +30,20 @@ cd <project_directory>
 
 2. Set Up Virtual Environment
 ```
-  python3 -m venv venv
-  `venv\Scripts\activate`
+python3 -m venv venv
+`venv\Scripts\activate`
 ```
 
 3. Install Dependencies
- ```
- pip install -r requirements.txt
+```
+pip install -r requirements.txt
 ```
 
 ## Running the Application:
 
 Start the Django development server:
 ```
-  python manage.py runserver
+python manage.py runserver
 ```
 
 * Access the application by navigating to http://127.0.0.1:8000/ in your web browser.
